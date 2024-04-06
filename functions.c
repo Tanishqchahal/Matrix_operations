@@ -5,7 +5,7 @@
 #include "functions.h"
 
 // Function to generate a random matrix
-void generateMatrix(int rows, int cols, double matrix[rows][cols]) {
+void generateMatrix(int rows, int cols, double **matrix) {
     // Generate random numbers between -10 and 10
     for (int i = 0; i < rows; i++) 
     {
@@ -17,7 +17,7 @@ void generateMatrix(int rows, int cols, double matrix[rows][cols]) {
 }
 
 // Function to print a matrix
-void printMatrix(int rows, int cols, double matrix[rows][cols]) { 
+void printMatrix(int rows, int cols, double **matrix) { 
     for (int i = 0; i < rows; i++) 
     {
         for (int j = 0; j < cols; j++) 
@@ -27,8 +27,18 @@ void printMatrix(int rows, int cols, double matrix[rows][cols]) {
         printf("\n");
     }
 }
+
+// Function to deallocate a matrix
+void deallocateMatrix(int rows, double **matrix) {
+    for (int i = 0; i < rows; i++) 
+    {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+
 // Function to add two matrices
-void addMatrices(int N1, int M1, double A[N1][M1], int N2, int M2, double B[N2][M2], double result[N1][M1])
+void addMatrices(int N1, int M1, double **A, int N2, int M2, double **B, double **result)
 {
     for (int i = 0; i < N1; i++)
     {
@@ -40,7 +50,7 @@ void addMatrices(int N1, int M1, double A[N1][M1], int N2, int M2, double B[N2][
 }
 
 // Function to subtract two matrices
-void subtractMatrices(int N1, int M1, double A[N1][M1], int N2, int M2, double B[N2][M2], double result[N1][M1])
+void subtractMatrices(int N1, int M1, double **A, int N2, int M2, double **B, double **result)
 {
     for (int i = 0; i < N1; i++)
     {
@@ -52,7 +62,7 @@ void subtractMatrices(int N1, int M1, double A[N1][M1], int N2, int M2, double B
 }
 
 // Function to multiply two matrices
-void multiplyMatrices(int N1, int M1, double A[N1][M1], int N2, int M2, double B[N2][M2], double result[N1][M2])
+void multiplyMatrices(int N1, int M1, double **A, int N2, int M2, double **B, double **result)
 {
     for (int i = 0; i < N1; i++)
     {
@@ -68,7 +78,7 @@ void multiplyMatrices(int N1, int M1, double A[N1][M1], int N2, int M2, double B
 }
 
 // Function to solve a linear system of equations
-void solveLinearSystem(int N1, int M1, double A[N1][M1], int N2, int M2, double B[N2][M2], double x[N1][M2])
+void solveLinearSystem(int N1, int M1, double **A, int N2, int M2, double **B, double **x)
 {
     double aug[N1][M1+1];
 
